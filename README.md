@@ -1,5 +1,5 @@
-[![Melpa Status](http://melpa.milkbox.net/packages/unfill-badge.svg)](http://melpa.milkbox.net/#/unfill)
-[![Melpa Stable Status](http://melpa-stable.milkbox.net/packages/unfill-badge.svg)](http://melpa-stable.milkbox.net/#/unfill)
+[![Melpa Status](http://melpa.org/packages/unfill-badge.svg)](http://melpa.org/#/unfill)
+[![Melpa Stable Status](http://stable.melpa.org/packages/unfill-badge.svg)](http://stable.melpa.org/#/unfill)
 
 unfill
 ======
@@ -8,7 +8,7 @@ Functions providing the inverse of Emacs' fill-paragraph and fill-region
 
 ### Installation
 
-Preferred method: install from [Marmalade](http://marmalade-repo.org) or [Melpa](http://melpa.milkbox.net/).
+Preferred method: install from [Marmalade](http://marmalade-repo.org) or [Melpa](http://melpa.org/).
 
 Otherwise:
 
