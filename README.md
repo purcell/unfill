@@ -1,5 +1,6 @@
 [![Melpa Status](http://melpa.org/packages/unfill-badge.svg)](http://melpa.org/#/unfill)
 [![Melpa Stable Status](http://stable.melpa.org/packages/unfill-badge.svg)](http://stable.melpa.org/#/unfill)
+[![Travis build status](https://travis-ci.org/purcell/unfill.svg?branch=master)](https://travis-ci.org/purcell/unfill)
 
 unfill
 ======
