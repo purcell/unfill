@@ -20,7 +20,7 @@ Otherwise:
 
     M-x unfill-region
     M-x unfill-paragraph
-    M-x toggle-fill-unfill
+    M-x unfill-toggle
 
 <hr>
 
