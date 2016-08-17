@@ -42,7 +42,7 @@ second paragraph.
 This is the second paragraph.
 "))))
 
-(ert-deftest toggle-fill-unfill-on-paragraph ()
+(ert-deftest unfill-toggle-on-paragraph ()
   (with-temp-buffer
     (let ((initial (apply 'concat "blah" (make-list 70 " blah"))) wrapped)
       (insert initial)
@@ -51,21 +51,21 @@ This is the second paragraph.
       (should-not (string= wrapped initial))
       ;; Toggling once: unfill
       (setq last-command 'self-insert-command)
-      (setq this-command 'toggle-fill-unfill)
-      (toggle-fill-unfill)
+      (setq this-command 'unfill-toggle)
+      (unfill-toggle)
       (should (string= (buffer-string) initial))
       ;; Toggling twice: fill
       (setq last-command this-command)
-      (setq this-command 'toggle-fill-unfill)
-      (toggle-fill-unfill)
+      (setq this-command 'unfill-toggle)
+      (unfill-toggle)
       (should (string= (buffer-string) wrapped))
       ;; Toggling three times: unfill
       (setq last-command this-command)
-      (setq this-command 'toggle-fill-unfill)
-      (toggle-fill-unfill)
+      (setq this-command 'unfill-toggle)
+      (unfill-toggle)
       (should (string= (buffer-string) initial)))))
 
-(ert-deftest toggle-fill-unfill-on-region ()
+(ert-deftest unfill-toggle-on-region ()
   (with-temp-buffer
     (let ((initial (concat (apply 'concat "blah" (make-list 70 " blah")) "\n\nSecond paragraph goes here")) wrapped)
       (insert initial)
@@ -79,16 +79,16 @@ This is the second paragraph.
       (transient-mark-mode 1)
       ;; Toggling once: unfill
       (setq last-command 'self-insert-command)
-      (setq this-command 'toggle-fill-unfill)
-      (toggle-fill-unfill)
+      (setq this-command 'unfill-toggle)
+      (unfill-toggle)
       (should (string= (buffer-string) initial))
       ;; Toggling twice: fill
       (setq last-command this-command)
-      (setq this-command 'toggle-fill-unfill)
-      (toggle-fill-unfill)
+      (setq this-command 'unfill-toggle)
+      (unfill-toggle)
       (should (string= (buffer-string) wrapped))
       ;; Toggling three times: unfill
       (setq last-command this-command)
-      (setq this-command 'toggle-fill-unfill)
-      (toggle-fill-unfill)
+      (setq this-command 'unfill-toggle)
+      (unfill-toggle)
       (should (string= (buffer-string) initial)))))

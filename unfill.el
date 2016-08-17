@@ -1,14 +1,26 @@
-;;; unfill.el --- The inverse of fill-paragraph and fill-region
+;;; unfill.el --- Unfill paragraphs or regions, and toggle between filled & unfilled
 
-;; Copyright (C) 2012 Steve Purcell.
+;; Copyright (C) 2012-2016 Steve Purcell.
 
 ;; Author: Steve Purcell <steve@sanityinc.com>
+;; X-URL: https://github.com/purcell/unfill
 ;; Version: DEV
 ;; Keywords: utilities
 
-;; Based on Xah Lee's examples: http://xahlee.org/emacs/emacs_unfill-paragraph.html
+;;; Commentary:
+
+;; Provides commands for explicitly unfilling (ie. unwrapping)
+;; paragraphs and regions, and also a command that will toggle between
+;; filling and unfilling the current paragraph or region.
+
+;; Based initially on Xah Lee's examples, and later rewritten based on an article by Artur Malabarba.
+;;   http://endlessparentheses.com/fill-and-unfill-paragraphs-with-a-single-key.html
+;;   http://xahlee.org/emacs/emacs_unfill-paragraph.html
+;;   http://xahlee.org/emacs/modernization_fill-paragraph.html
 
 ;; This file is NOT part of GNU Emacs.
+
+;;; Code:
 
 ;;;###autoload
 (defun unfill-paragraph ()
@@ -16,7 +28,7 @@
 This command does the inverse of `fill-paragraph'."
   (interactive)
   (let ((fill-column most-positive-fixnum))
-    (fill-paragraph nil)))
+    (call-interactively 'fill-paragraph)))
 
 ;;;###autoload
 (defun unfill-region (start end)
@@ -27,31 +39,19 @@ This command does the inverse of `fill-region'."
     (fill-region start end)))
 
 ;;;###autoload
-(defun toggle-fill-unfill ()
-  "Remove or add line ending chars on current paragraph.  This command is similar to a toggle of `fill-paragraph'.  When there is a text selection, act on the region."
+(defun unfill-toggle ()
+  "Toggle filling/unfilling of the current region, or current paragraph if no region active."
   (interactive)
-  ;; This command symbol has a property “'stateIsCompact-p”.
-  (let (currentStateIsCompact
-        (bigFillColumnVal most-positive-fixnum)
-        (deactivate-mark nil))
-    (save-excursion
-      ;; Determine whether the text is currently compact.
-      (setq currentStateIsCompact
-            (if (eq last-command this-command)
-                (get this-command 'stateIsCompact-p)
-              (if (> (- (line-end-position) (line-beginning-position)) fill-column) t nil) ) )
+  (let (deactivate-mark
+        (fill-column
+         (if (eq last-command this-command)
+             (progn (setq this-command nil)
+                    most-positive-fixnum)
+           fill-column)))
+    (call-interactively 'fill-paragraph)))
 
-      (if (use-region-p)
-          (if currentStateIsCompact
-              (fill-region (region-beginning) (region-end))
-            (let ((fill-column bigFillColumnVal))
-              (fill-region (region-beginning) (region-end))) )
-        (if currentStateIsCompact
-            (fill-paragraph nil)
-          (let ((fill-column bigFillColumnVal))
-            (fill-paragraph nil)) ) )
-
-      (put this-command 'stateIsCompact-p (if currentStateIsCompact nil t)) ) ) )
+;;;###autoload
+(define-obsolete-function-alias 'toggle-fill-unfill 'unfill-toggle)
 
 (provide 'unfill)
 ;;; unfill.el ends here
