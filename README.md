@@ -1,6 +1,7 @@
 [![Melpa Status](http://melpa.org/packages/unfill-badge.svg)](http://melpa.org/#/unfill)
 [![Melpa Stable Status](http://stable.melpa.org/packages/unfill-badge.svg)](http://stable.melpa.org/#/unfill)
 [![Travis build status](https://travis-ci.org/purcell/unfill.svg?branch=master)](https://travis-ci.org/purcell/unfill)
+<a href="https://www.patreon.com/sanityinc"><img alt="Support me" src="https://img.shields.io/badge/Support%20Me-%F0%9F%92%97-ff69b4.svg"></a>
 
 unfill
 ======
