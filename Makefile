@@ -1,7 +1,10 @@
 EMACS ?= emacs
 
 INIT_PACKAGES="(progn \
+  (require 'package) \
+  (push '(\"melpa\" . \"https://melpa.org/packages/\") package-archives) \
   (package-initialize) \
+  (package-refresh-contents) \
   (unless (package-installed-p 'undercover) \
     (package-install 'undercover)))"
 
