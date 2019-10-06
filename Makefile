@@ -1,8 +1,8 @@
 EMACS ?= emacs
 
-INIT_PACKAGES="(progn
-  (package-initialize)
-  (unless (package-installed-p 'undercover)
+INIT_PACKAGES="(progn \
+  (package-initialize) \
+  (unless (package-installed-p 'undercover) \
     (package-install 'undercover)))"
 
 all: test
