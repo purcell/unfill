@@ -1,5 +1,9 @@
 EMACS ?= emacs
-CASK_EXEC ?= cask exec
+
+INIT_PACKAGES="(progn
+  (package-initialize)
+  (unless (package-installed-p 'undercover)
+    (package-install 'undercover)))"
 
 all: test
 
@@ -10,10 +14,10 @@ test: clean-elc
 	${MAKE} clean-elc
 
 unit:
-	${CASK_EXEC} ${EMACS} -Q -batch -l test.el --eval "(ert t)"
+	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -l test.el --eval "(ert t)"
 
 compile:
-	${CASK_EXEC} ${EMACS} -Q -batch -f batch-byte-compile unfill.el
+	${EMACS} -Q -batch -f batch-byte-compile unfill.el
 
 clean-elc:
 	rm -f f.elc
