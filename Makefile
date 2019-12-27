@@ -5,24 +5,23 @@ INIT_PACKAGES="(progn \
   (push '(\"melpa\" . \"https://melpa.org/packages/\") package-archives) \
   (package-initialize) \
   (package-refresh-contents) \
+    (unless (package-installed-p 'package-lint) \
+    (package-install 'package-lint)) \
   (unless (package-installed-p 'undercover) \
     (package-install 'undercover)))"
 
-all: test
-
-test: clean-elc
-	${MAKE} unit
-	${MAKE} compile
-	${MAKE} unit
-	${MAKE} clean-elc
+all: compile package-lint unit clean-elc
 
 unit:
 	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -l test.el --eval "(ert t)"
 
-compile:
+package-lint:
+	${EMACS} -Q -batch -f package-lint-batch-and-exit unfill.el
+
+compile: clean-elc
 	${EMACS} -Q -batch -f batch-byte-compile unfill.el
 
 clean-elc:
 	rm -f f.elc
 
-.PHONY:	all test
+.PHONY:	all compile unit clean-elc package-lint
