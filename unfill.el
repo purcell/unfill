@@ -1,11 +1,11 @@
-;;; unfill.el --- Unfill paragraphs or regions, and toggle between filled & unfilled
+;;; unfill.el --- Do the opposite of fill-paragraph or fill-region
 
 ;; Copyright (C) 2012-2017 Steve Purcell.
 
 ;; Author: Steve Purcell <steve@sanityinc.com>
-;; X-URL: https://github.com/purcell/unfill
+;; Homepage: https://github.com/purcell/unfill
 ;; Package-Version: 0
-;; Keywords: utilities
+;; Keywords: editing utilities
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
