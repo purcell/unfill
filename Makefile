@@ -16,7 +16,7 @@ unit:
 	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -l test.el --eval "(ert t)"
 
 package-lint:
-	${EMACS} -Q -batch -f package-lint-batch-and-exit unfill.el
+	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -f package-lint-batch-and-exit unfill.el
 
 compile: clean-elc
 	${EMACS} -Q -batch -f batch-byte-compile unfill.el
