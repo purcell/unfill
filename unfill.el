@@ -5,7 +5,7 @@
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; Homepage: https://github.com/purcell/unfill
 ;; Package-Version: 0
-;; Keywords: editing utilities
+;; Keywords: convenience
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
