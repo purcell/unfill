@@ -1,10 +1,11 @@
-;;; unfill.el --- Do the opposite of fill-paragraph or fill-region
+;;; unfill.el --- Do the opposite of fill-paragraph or fill-region  -*- lexical-binding: t -*-
 
-;; Copyright (C) 2012-2017 Steve Purcell.
+;; Copyright (C) 2012-2020 Steve Purcell.
 
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; Homepage: https://github.com/purcell/unfill
 ;; Package-Version: 0
+;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: convenience
 
 ;; This program is free software; you can redistribute it and/or modify
