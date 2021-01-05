@@ -65,7 +65,7 @@ This command does the inverse of `fill-region'."
     (call-interactively 'fill-paragraph)))
 
 ;;;###autoload
-(define-obsolete-function-alias 'toggle-fill-unfill 'unfill-toggle)
+(define-obsolete-function-alias 'toggle-fill-unfill 'unfill-toggle "0.2")
 
 (provide 'unfill)
 ;;; unfill.el ends here
