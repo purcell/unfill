@@ -21,7 +21,16 @@ Otherwise:
 
     M-x unfill-region
     M-x unfill-paragraph
-    M-x unfill-toggle
+    M-x unfill-cycle
+
+### unfill-cycle
+
+By default ~unfill-cycle~ toggles the paragraph at point between filled and unfilled.
+
+You can customize this behavior by setting the list-variable ~unfill-functions~ in your emacs-config.
+~unfill-cycle~ will then format the paragraph according to the first function on it's first call, to the second function on it's second consecutive call, etc.
+
+    (setq unfill-functions (list 'fill-paragraph 'unfill-paragraph 'my-own-function-for-formating-paragraphs))
 
 <hr>
 
