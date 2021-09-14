@@ -60,23 +60,21 @@ This variable should be a list of functions that don't take arguments.")
 (defun unfill-cycle ()
   "Cycle formating of the current region, or current paragraph if no region active."
   (interactive)
-  (funcall (cycle-on-repetition unfill-functions))
-  )
+  (funcall (unfill-cycle-on-repetition unfill-functions)))
 
-(defvar repetition-counter 0
+(defvar unfill-repetition-counter 0
   "How often cycle-on-repetition has been called in a row using the same command.")
 
 ;;;###autoload
-(defun cycle-on-repetition (list-of-expressions)
+(defun unfill-cycle-on-repetition (list-of-expressions)
   "Return the first element from the list on the first call,
    the second expression on the second consecutive call etc"
   (interactive)
   (if (equal this-command last-command)
-      (setq repetition-counter (+ repetition-counter 1))
-    (setq repetition-counter 0)
-    )
+      (setq unfill-repetition-counter (+ unfill-repetition-counter 1))
+    (setq unfill-repetition-counter 0))
   (nth
-   (mod repetition-counter (length list-of-expressions))
+   (mod unfill-repetition-counter (length list-of-expressions))
    list-of-expressions))
 
 
