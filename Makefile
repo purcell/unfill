@@ -13,7 +13,7 @@ INIT_PACKAGES="(progn \
 all: compile package-lint unit clean-elc
 
 unit:
-	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -l test.el --eval "(ert t)"
+	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -l test.el --eval ert-run-tests-batch-and-exit
 
 package-lint:
 	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -f package-lint-batch-and-exit unfill.el
