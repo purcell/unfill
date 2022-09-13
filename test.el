@@ -1,5 +1,5 @@
 (when (require 'undercover nil t)
-  (undercover "unfill.el"))
+  (undercover "unfill.el" (:report-format 'simplecov) (:send-report nil)))
 (load-file "unfill.el")
 
 (defvar unfill-test-example "This
