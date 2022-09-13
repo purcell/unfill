@@ -13,6 +13,7 @@ INIT_PACKAGES="(progn \
 all: compile package-lint unit clean-elc
 
 unit:
+	mkdir -p coverage
 	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -l test.el -f ert-run-tests-batch-and-exit
 
 package-lint:
