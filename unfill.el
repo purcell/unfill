@@ -52,20 +52,37 @@ This command does the inverse of `fill-region'."
   (let ((fill-column most-positive-fixnum))
     (fill-region start end)))
 
-;;;###autoload
-(defun unfill-toggle ()
-  "Toggle filling/unfilling of the current region, or current paragraph if no region active."
-  (interactive)
-  (let (deactivate-mark
-        (fill-column
-         (if (eq last-command this-command)
-             (progn (setq this-command nil)
-                    most-positive-fixnum)
-           fill-column)))
-    (call-interactively 'fill-paragraph)))
+(defvar unfill-functions (list 'fill-paragraph 'unfill-paragraph)
+  "Functions for unfill-cycle to format the paragraph at point.
+This variable should be a list of functions that don't take arguments.")
 
 ;;;###autoload
-(define-obsolete-function-alias 'toggle-fill-unfill 'unfill-toggle "0.2")
+(defun unfill-cycle ()
+  "Cycle formating of the current region, or current paragraph if no region active."
+  (interactive)
+  (funcall (unfill-cycle-on-repetition unfill-functions)))
+
+(defvar unfill-repetition-counter 0
+  "How often cycle-on-repetition has been called in a row using the same command.")
+
+;;;###autoload
+(defun unfill-cycle-on-repetition (list-of-expressions)
+  "Return the first element from the list on the first call,
+   the second expression on the second consecutive call etc"
+  (interactive)
+  (if (equal this-command last-command)
+      (setq unfill-repetition-counter (+ unfill-repetition-counter 1))
+    (setq unfill-repetition-counter 0))
+  (nth
+   (mod unfill-repetition-counter (length list-of-expressions))
+   list-of-expressions))
+
+
+;;;###autoload
+(define-obsolete-function-alias 'toggle-fill-unfill 'unfill-cycle "0.2")
+
+;;;###autoload
+(define-obsolete-function-alias 'toggle-toggle 'unfill-cycle "0.4")
 
 (provide 'unfill)
 ;;; unfill.el ends here
