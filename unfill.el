@@ -54,7 +54,8 @@ This command does the inverse of `fill-region'."
 
 ;;;###autoload
 (defun unfill-toggle ()
-  "Toggle filling/unfilling of the current region, or current paragraph if no region active."
+  "Toggle filling/unfilling of the current region.
+Operates on the current paragraph if no region is active."
   (interactive)
   (let (deactivate-mark
         (fill-column
