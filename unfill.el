@@ -5,7 +5,7 @@
 ;; Author: Steve Purcell <steve@sanityinc.com>
 ;; Homepage: https://github.com/purcell/unfill
 ;; Package-Version: 0
-;; Package-Requires: ((emacs "24.1"))
+;; Package-Requires: ((emacs "24.3"))
 ;; Keywords: convenience
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -36,6 +36,9 @@
 
 ;;; Code:
 
+(require 'org-element)
+(require 'org-list)
+
 ;;;###autoload
 (defun unfill-paragraph ()
   "Replace newline chars in current paragraph by single spaces.
@@ -51,6 +54,37 @@ This command does the inverse of `fill-region'."
   (interactive "r")
   (let ((fill-column most-positive-fixnum))
     (fill-region start end)))
+
+;;;###autoload
+(defun unfill-org-buffer ()
+  "Using org tree awareness, unfill all paragraphs.
+Includes paragraphs embedded in item lists."
+  (interactive)
+  ;; The following body heavily borrows from `org-unindent-buffer'.
+  (unless (and  (eq major-mode 'org-mode))
+    (user-error "Cannot unfill a buffer not in Org mode"))
+  (letrec ((parse-tree (org-element-parse-buffer 'greater-element nil 'defer))
+           (unfill-tree
+	    (lambda (contents)
+	      (dolist (element (reverse contents))
+                (let ((type (org-element-type element)))
+		  (if (member type  '(headline section))
+		      (funcall unfill-tree (org-element-contents element))
+		    (save-excursion
+		      (save-restriction
+		        (narrow-to-region
+		         (org-element-begin element)
+		         (org-element-end element))
+                        (goto-char (point-min))
+                        (pcase type
+                          (`paragraph (unfill-paragraph))
+                          (`plain-list
+                           (mapc
+                            (lambda (i)
+                              (goto-char (car i))
+                              (unfill-paragraph))
+                            (reverse (org-list-struct)))))))))))))
+    (funcall unfill-tree (org-element-contents parse-tree))))
 
 ;;;###autoload
 (defun unfill-toggle ()
