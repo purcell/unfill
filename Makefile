@@ -14,7 +14,7 @@ all: compile package-lint unit clean-elc
 
 unit:
 	mkdir -p coverage
-	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -l test.el -f ert-run-tests-batch-and-exit
+	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -l unfill-test.el -f ert-run-tests-batch-and-exit
 
 package-lint:
 	${EMACS} -Q --eval ${INIT_PACKAGES} -batch -f package-lint-batch-and-exit unfill.el
