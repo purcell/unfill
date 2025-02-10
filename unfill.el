@@ -53,6 +53,18 @@ This command does the inverse of `fill-region'."
     (fill-region start end)))
 
 ;;;###autoload
+(defun unfill-newest-entry-in-kill-ring (&optional replace)
+  "Add to kill ring the unfilled version of the newest entry.
+This command unfills with 'unfill-paragraph'.  If REPLACE is
+non-nil, replace the newest entry in the kill-ring instead of
+just adding the unfilled version."
+  (interactive "P")
+  (with-temp-buffer
+    (insert (car kill-ring))
+    (unfill-region (point-min) (point-max))
+    (kill-new (buffer-string) replace)))
+
+;;;###autoload
 (defun unfill-toggle ()
   "Toggle filling/unfilling of the current region.
 Operates on the current paragraph if no region is active."
